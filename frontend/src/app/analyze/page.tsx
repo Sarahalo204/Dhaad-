@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import ReactFlow, {
   Background,
   Controls,
@@ -24,7 +24,7 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
-export default function AnalyzePage() {
+function AnalyzeContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const router = useRouter();
@@ -275,5 +275,13 @@ export default function AnalyzePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AnalyzePage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center h-screen bg-background text-primary">جاري تحميل مساحة العمل...</div>}>
+      <AnalyzeContent />
+    </Suspense>
   );
 }
