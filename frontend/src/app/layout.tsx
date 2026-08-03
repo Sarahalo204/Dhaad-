@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" className={cn("font-sans", geist.variable)}>
-      <body className={`${tajawal.variable} font-sans antialiased`}>
+      <body className={`${tajawal.variable} font-sans antialiased bg-slate-50 text-slate-900`}>
         {children}
       </body>
     </html>

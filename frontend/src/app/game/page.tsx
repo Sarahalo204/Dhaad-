@@ -91,21 +91,19 @@ export default function GamePage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen p-6 flex flex-col items-center justify-center geo-pattern">
-      <div className="orb orb-gold w-[400px] h-[400px] top-[-10%] left-[-10%]" />
-      <div className="orb orb-teal w-[300px] h-[300px] bottom-[-5%] right-[-5%]" />
+    <div className="min-h-screen p-6 flex flex-col items-center justify-center bg-slate-50 relative overflow-hidden">
       
       {/* Header */}
       <div className="absolute top-6 left-6 right-6 flex justify-between items-center z-10">
-        <Button variant="ghost" size="icon" onClick={() => router.push("/dashboard")} className="hover:bg-primary/10 text-foreground">
+        <Button variant="ghost" size="icon" onClick={() => router.push("/dashboard")} className="hover:bg-primary/10 text-slate-800 cursor-pointer">
           <ArrowRight size={24} />
         </Button>
         <div className="flex gap-3">
-          <div className="badge-gold text-lg font-black gap-2">
+          <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-lg font-black gap-2">
             مستوى {level}
           </div>
-          <div className="badge-gold text-lg font-black gap-2">
-            <Star className="text-primary" size={18} />
+          <div className="bg-accent/10 text-accent px-3 py-1 rounded-full text-lg font-black gap-2 flex items-center">
+            <Star className="text-accent ml-1" size={18} />
             {xp} XP
           </div>
         </div>
@@ -118,20 +116,20 @@ export default function GamePage() {
               key="finished"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="card-dhaad p-12 text-center"
+              className="glass p-12 text-center rounded-3xl shadow-xl border border-slate-200"
             >
               <motion.div
                 animate={{ rotate: [0, -10, 10, -5, 5, 0] }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                <Trophy className="mx-auto w-28 h-28 mb-8" style={{ color: "#C9A96A" }} />
+                <Trophy className="mx-auto w-28 h-28 mb-8 text-accent" />
               </motion.div>
-              <h1 className="text-5xl font-black mb-4 text-gold">أحسنت بطل النحو!</h1>
-              <p className="text-xl text-muted-foreground mb-8">لقد أنهيت التحدي وربحت <span className="font-black text-primary">{sessionScore} XP</span>.</p>
-              <div className="progress-bar max-w-xs mx-auto mb-8">
-                <div className="progress-bar-fill" style={{ width: '100%' }} />
+              <h1 className="text-5xl font-black mb-4 text-slate-900">أحسنت بطل النحو!</h1>
+              <p className="text-xl text-slate-500 mb-8">لقد أنهيت التحدي وربحت <span className="font-black text-primary">{sessionScore} XP</span>.</p>
+              <div className="w-full bg-slate-200 rounded-full h-4 mb-8">
+                <div className="bg-primary h-4 rounded-full" style={{ width: '100%' }} />
               </div>
-              <button onClick={() => router.push("/dashboard")} className="btn-gold h-14 px-10 text-lg rounded-xl flex items-center gap-2 mx-auto cursor-pointer">
+              <button onClick={() => router.push("/dashboard")} className="bg-primary hover:bg-primary/90 text-white font-bold shadow-md h-14 px-10 text-lg rounded-xl flex items-center gap-2 mx-auto cursor-pointer">
                 العودة إلى لوحة القيادة
                 <ArrowLeft size={20} />
               </button>
@@ -142,10 +140,10 @@ export default function GamePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="card-dhaad p-20 flex flex-col items-center justify-center text-center animate-glow-pulse"
+              className="glass p-20 flex flex-col items-center justify-center text-center rounded-3xl shadow-xl border border-slate-200"
             >
               <div className="w-20 h-20 rounded-full border-4 border-primary/20 border-t-primary animate-spin mb-8" />
-              <h2 className="text-2xl font-bold text-muted-foreground">
+              <h2 className="text-2xl font-bold text-slate-500">
                 الذكاء الاصطناعي يجهز لك تحدياً جديداً...
               </h2>
             </motion.div>
@@ -155,7 +153,7 @@ export default function GamePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="card-dhaad p-10 text-center relative"
+              className="glass p-10 text-center relative rounded-3xl shadow-xl border border-slate-200"
             >
               {/* Question counter */}
               <div className="flex items-center justify-center gap-4 mb-8">
@@ -163,19 +161,19 @@ export default function GamePage() {
                   <div key={n} className={cn(
                     "w-10 h-10 rounded-full flex items-center justify-center text-sm font-black transition-all",
                     n < questionCount ? "bg-primary/20 text-primary" :
-                    n === questionCount ? "bg-primary text-background scale-110 shadow-[0_0_20px_rgba(201,169,106,0.3)]" :
-                    "bg-card border border-border text-muted-foreground"
+                    n === questionCount ? "bg-primary text-white scale-110 shadow-lg" :
+                    "bg-white border border-slate-200 text-slate-400"
                   )}>
                     {n < questionCount ? "✓" : n}
                   </div>
                 ))}
               </div>
 
-              <div className="divider-geo mb-8">
-                <Zap size={16} className="text-primary" />
+              <div className="flex justify-center mb-8 border-b-2 border-slate-100 pb-4">
+                <Zap size={24} className="text-primary" />
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-black mb-10 text-foreground leading-relaxed" dir="rtl">
+              <h1 className="text-3xl md:text-4xl font-black mb-10 text-slate-900 leading-relaxed" dir="rtl">
                 {challenge.sentence.includes("_____") ? (
                   challenge.sentence.split("_____").map((part, i, arr) => (
                     <span key={i}>
@@ -185,7 +183,7 @@ export default function GamePage() {
                           "inline-block min-w-[100px] border-b-4 mx-2 pb-1 transition-all duration-300 text-center",
                           selected 
                             ? (isCorrect ? "border-secondary text-secondary" : "border-destructive text-destructive") 
-                            : "border-primary/30"
+                            : "border-slate-300 text-slate-800"
                         )}>
                           {selected || ""}
                         </span>
@@ -210,11 +208,11 @@ export default function GamePage() {
                       "h-20 text-2xl font-black rounded-2xl border-2 transition-all cursor-pointer",
                       selected === opt 
                         ? (isCorrect 
-                          ? "bg-secondary/10 border-secondary text-secondary shadow-[0_0_20px_rgba(42,157,143,0.2)]" 
+                          ? "bg-secondary/10 border-secondary text-secondary shadow-md" 
                           : "bg-destructive/10 border-destructive text-destructive")
                         : selected
-                          ? "opacity-30 border-border bg-card" 
-                          : "bg-card border-border hover:border-primary/50 text-foreground hover:shadow-[0_0_20px_rgba(201,169,106,0.1)]"
+                          ? "opacity-50 border-slate-200 bg-slate-50 text-slate-400" 
+                          : "bg-white border-slate-200 hover:border-primary/50 text-slate-700 hover:shadow-md"
                     )}
                   >
                     {opt}
@@ -226,31 +224,31 @@ export default function GamePage() {
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-8 pt-8 border-t border-border"
+                  className="mt-8 pt-8 border-t border-slate-100"
                 >
                   <div className={cn(
-                    "p-6 rounded-2xl text-lg font-bold text-right mb-6",
+                    "p-6 rounded-2xl text-lg font-bold text-right mb-6 shadow-sm",
                     isCorrect 
                       ? "bg-secondary/10 text-secondary border border-secondary/20" 
                       : "bg-destructive/10 text-destructive border border-destructive/20"
                   )}>
                     {isCorrect ? "إجابة رائعة! +50 XP 🌟" : `إجابة خاطئة! الإجابة الصحيحة هي: ${challenge.answer}`}
-                    <p className="text-muted-foreground mt-3 font-medium text-base">
-                      <span className="font-bold text-foreground">السبب: </span>
+                    <p className="text-slate-600 mt-3 font-medium text-base">
+                      <span className="font-bold text-slate-900">السبب: </span>
                       {challenge.explanation}
                     </p>
                   </div>
 
-                  <button onClick={handleNext} className="btn-gold h-14 px-8 text-lg rounded-xl flex items-center gap-2 mx-auto cursor-pointer">
+                  <button onClick={handleNext} className="bg-primary hover:bg-primary/90 text-white shadow-md font-bold h-14 px-8 text-lg rounded-xl flex items-center gap-2 mx-auto cursor-pointer">
                     {questionCount >= 5 ? "إنهاء التحدي" : "السؤال التالي"} <ArrowLeft size={20} />
                   </button>
                 </motion.div>
               )}
             </motion.div>
           ) : (
-            <motion.div key="error" className="text-center card-dhaad p-8">
+            <motion.div key="error" className="text-center glass p-8 rounded-3xl">
               <h2 className="text-2xl font-bold text-destructive mb-4">عذراً، حدث خطأ في الاتصال</h2>
-              <button onClick={fetchNewChallenge} className="btn-gold px-6 py-3 rounded-xl flex items-center gap-2 mx-auto cursor-pointer">
+              <button onClick={fetchNewChallenge} className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl flex items-center gap-2 mx-auto cursor-pointer">
                 <RefreshCw size={18} /> أعد المحاولة
               </button>
             </motion.div>

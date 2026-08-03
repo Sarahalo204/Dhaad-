@@ -71,11 +71,11 @@ function AnalyzeContent() {
           target: e.target,
           label: e.label,
           animated: true,
-          style: { stroke: "#C9A96A", strokeWidth: 2 },
-          labelStyle: { fill: "#C9A96A", fontWeight: 700 },
+          style: { stroke: "#0EA5E9", strokeWidth: 2 },
+          labelStyle: { fill: "#0EA5E9", fontWeight: 700 },
           markerEnd: {
             type: MarkerType.ArrowClosed,
-            color: "#C9A96A",
+            color: "#0EA5E9",
           },
         }));
 
@@ -122,7 +122,7 @@ function AnalyzeContent() {
       {/* Header */}
       <header className="h-16 border-b border-border bg-card/80 backdrop-blur-md flex items-center px-6 justify-between z-10 shrink-0">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => router.push("/")} className="hover:bg-primary/10 text-foreground">
+          <Button variant="ghost" size="icon" onClick={() => router.push("/")} className="hover:bg-primary/10 text-foreground cursor-pointer">
             <ArrowRight size={20} />
           </Button>
           <h1 className="font-bold text-xl text-primary flex items-center gap-2">
@@ -130,8 +130,8 @@ function AnalyzeContent() {
             تحليل الجملة
           </h1>
         </div>
-        <div className="font-medium text-foreground bg-card px-5 py-2 rounded-xl border border-border shadow-sm flex items-center gap-3">
-          <span className="text-muted-foreground">الجملة:</span>
+        <div className="font-medium text-foreground bg-white px-5 py-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+          <span className="text-slate-500">الجملة:</span>
           <span className="text-primary font-bold">{query}</span>
         </div>
       </header>
@@ -139,9 +139,9 @@ function AnalyzeContent() {
       {/* Main Content */}
       <div className="flex flex-1 overflow-hidden relative">
         {loading ? (
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background/90 backdrop-blur-sm">
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm">
             <div className="w-16 h-16 rounded-full border-4 border-primary/20 border-t-primary animate-spin mb-6" />
-            <p className="text-lg font-bold text-muted-foreground">
+            <p className="text-lg font-bold text-slate-500">
               المعلم الذكي يحلل جملتك...
             </p>
           </div>
@@ -157,40 +157,40 @@ function AnalyzeContent() {
             onNodeClick={onNodeClick}
             nodeTypes={nodeTypes}
             fitView
-            className="bg-background"
+            className="bg-slate-50"
           >
-            <Background gap={20} color="#1E2436" />
-            <Controls className="bg-card border border-border shadow-lg rounded-xl overflow-hidden" />
-            <MiniMap className="bg-card border border-border shadow-xl rounded-xl" />
+            <Background gap={20} color="#e2e8f0" />
+            <Controls className="bg-white border border-slate-200 shadow-lg rounded-xl overflow-hidden" />
+            <MiniMap className="bg-white border border-slate-200 shadow-xl rounded-xl" />
           </ReactFlow>
         </div>
 
         {/* Sidebar */}
-        <div className="w-96 border-r border-border bg-card/90 backdrop-blur-lg h-full shrink-0 flex flex-col z-10 shadow-2xl">
+        <div className="w-96 border-r border-slate-200 bg-white/90 backdrop-blur-lg h-full shrink-0 flex flex-col z-10 shadow-2xl">
           {selectedWord ? (
             <div className="p-6 h-full overflow-y-auto space-y-6">
               
               {/* Word Title & POS Badge */}
-              <div className="flex items-center justify-between pb-4 border-b border-border">
-                <h2 className="text-5xl font-black text-gold tracking-tight">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h2 className="text-5xl font-black text-slate-800 tracking-tight">
                   {selectedWord.word}
                 </h2>
-                <div className="badge-teal">
+                <div className="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm font-bold">
                   {selectedWord.pos}
                 </div>
               </div>
 
               {/* Grammar Reason (Irab) */}
-              <div className="card-dhaad p-5 relative overflow-hidden">
+              <div className="glass shadow-md rounded-2xl p-5 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-1.5 h-full bg-primary" />
                 <h3 className="text-sm text-primary mb-2 flex items-center gap-2 font-bold">
                   <BookOpen size={16} /> الإعراب
                 </h3>
-                <p className="text-xl font-bold text-foreground leading-snug">
+                <p className="text-xl font-bold text-slate-900 leading-snug">
                   {selectedWord.irab}
                 </p>
                 {selectedWord.case && (
-                  <div className="mt-3 badge-gold text-xs">
+                  <div className="mt-3 bg-primary/10 text-primary px-2 py-1 rounded-md text-xs inline-block font-bold">
                     الحالة: {selectedWord.case}
                   </div>
                 )}
@@ -205,28 +205,28 @@ function AnalyzeContent() {
                   { label: "العدد", value: selectedWord.number },
                   { label: "الجنس", value: selectedWord.gender },
                 ].map((item, i) => item.value && item.value !== "null" && (
-                  <div key={i} className="stat-card gold flex flex-col items-center justify-center text-center p-3">
-                    <span className="text-xs text-muted-foreground mb-1">{item.label}</span>
-                    <span className="font-bold text-lg text-foreground">{item.value}</span>
+                  <div key={i} className="glass rounded-xl flex flex-col items-center justify-center text-center p-3">
+                    <span className="text-xs text-slate-500 mb-1">{item.label}</span>
+                    <span className="font-bold text-lg text-slate-900">{item.value}</span>
                   </div>
                 ))}
               </div>
 
               {/* AI Teacher Section */}
-              <div className="mt-6 border-t border-border pt-6">
+              <div className="mt-6 border-t border-slate-100 pt-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(231,111,81,0.15)" }}>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-accent/10">
                     <Brain size={18} className="text-accent" />
                   </div>
-                  <h3 className="font-bold text-lg text-foreground">المعلم الذكي</h3>
+                  <h3 className="font-bold text-lg text-slate-800">المعلم الذكي</h3>
                 </div>
                 
-                <div className="flex gap-1.5 mb-4 bg-background p-1 rounded-xl border border-border">
+                <div className="flex gap-1.5 mb-4 bg-slate-50 p-1 rounded-xl border border-slate-200">
                   {['طفل', 'متوسط', 'متقدم', 'متخصص'].map(level => (
                     <button 
                       key={level}
                       onClick={() => setExplainLevel(level)}
-                      className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all cursor-pointer ${explainLevel === level ? 'bg-primary/10 text-primary shadow-sm border border-primary/20' : 'text-muted-foreground hover:text-foreground'}`}
+                      className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all cursor-pointer ${explainLevel === level ? 'bg-primary text-white shadow-md' : 'text-slate-500 hover:text-slate-800'}`}
                     >
                       {level}
                     </button>
@@ -237,7 +237,7 @@ function AnalyzeContent() {
                   <button 
                     onClick={handleExplain} 
                     disabled={isExplaining}
-                    className="btn-gold w-full gap-2 rounded-xl h-12 flex items-center justify-center cursor-pointer disabled:opacity-50"
+                    className="w-full gap-2 rounded-xl h-12 flex items-center justify-center cursor-pointer disabled:opacity-50 bg-primary hover:bg-primary/90 text-white font-bold transition-all shadow-md"
                   >
                     {isExplaining ? <Loader2 size={18} className="animate-spin" /> : <PlayCircle size={18} />}
                     اشرح لي الإعراب
@@ -248,7 +248,7 @@ function AnalyzeContent() {
                     animate={{ opacity: 1, y: 0 }}
                     className="p-5 rounded-2xl bg-accent/5 border border-accent/20"
                   >
-                    <p className="text-foreground leading-relaxed font-medium">
+                    <p className="text-slate-800 leading-relaxed font-medium">
                       {explanation}
                     </p>
                     <button className="mt-3 text-accent hover:underline font-bold text-sm cursor-pointer w-full text-center" onClick={() => setExplanation("")}>
@@ -260,12 +260,12 @@ function AnalyzeContent() {
 
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-full text-muted-foreground p-8 text-center space-y-6">
-              <div className="w-24 h-24 rounded-full bg-card flex items-center justify-center border border-border">
+            <div className="flex flex-col items-center justify-center h-full text-slate-400 p-8 text-center space-y-6">
+              <div className="w-24 h-24 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 shadow-sm">
                 <BookOpen size={40} className="text-primary/30" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-foreground mb-2">الشجرة النحوية التفاعلية</h3>
+                <h3 className="text-lg font-bold text-slate-600 mb-2">الشجرة النحوية التفاعلية</h3>
                 <p className="text-sm leading-relaxed">
                   اضغط على أي كلمة لعرض تفاصيلها الصرفية والإعرابية.
                 </p>
@@ -280,7 +280,7 @@ function AnalyzeContent() {
 
 export default function AnalyzePage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-screen bg-background text-primary">جاري تحميل مساحة العمل...</div>}>
+    <Suspense fallback={<div className="flex items-center justify-center h-screen bg-slate-50 text-primary font-bold">جاري تحميل مساحة العمل...</div>}>
       <AnalyzeContent />
     </Suspense>
   );
