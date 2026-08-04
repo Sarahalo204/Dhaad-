@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, Mic, Sparkles, Gamepad2, Network, BarChart3, BookOpenCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -18,171 +17,179 @@ export default function Home() {
     }
   };
 
-  const features = [
+  const secondaryFeatures = [
     {
-      icon: <BookOpenCheck size={28} />,
-      title: "تحليل الجملة بالذكاء الاصطناعي",
-      desc: "إعراب فوري وتفصيلي مع شجرة نحوية تفاعلية",
-      href: "/analyze",
-      color: "#006D77",
-    },
-    {
-      icon: <Network size={28} />,
-      title: "شبكة علاقات الكلمات",
-      desc: "اكتشف المرادفات والأضداد والجذور",
+      icon: <Network size={20} />,
+      title: "شبكة الكلمات",
       href: "/relationships",
-      color: "#0EA5E9",
+      color: "text-[#0EA5E9]",
+      bg: "bg-[#0EA5E9]/10"
     },
     {
-      icon: <Gamepad2 size={28} />,
-      title: "تحديات نحوية ذكية",
-      desc: "أسئلة متجددة تتكيف مع مستواك",
+      icon: <Gamepad2 size={20} />,
+      title: "تحديات ذكية",
       href: "/game",
-      color: "#F59E0B",
+      color: "text-[#F59E0B]",
+      bg: "bg-[#F59E0B]/10"
     },
     {
-      icon: <BarChart3 size={28} />,
-      title: "لوحة التقدم الشخصية",
-      desc: "تابع نقاطك ومستواك وإنجازاتك",
+      icon: <BarChart3 size={20} />,
+      title: "لوحة التقدم",
       href: "/dashboard",
-      color: "#006D77",
+      color: "text-[#006D77]",
+      bg: "bg-[#006D77]/10"
     },
   ];
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Animated Background Gradients */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full animate-pulse-slow"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 blur-[120px] rounded-full animate-pulse-slow delay-1000"></div>
+    <main className="relative min-h-screen flex flex-col items-center overflow-hidden bg-slate-50">
+      {/* Animated Background Tree */}
+      <BackgroundTree />
 
       {/* Navbar */}
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-8 py-5"
+        className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-8 py-6"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-sm">
-            <Sparkles size={20} className="text-primary" />
+          <div className="w-12 h-12 rounded-xl bg-[#006D77]/10 border border-[#006D77]/20 flex items-center justify-center shadow-sm">
+            <Sparkles size={24} className="text-[#006D77]" />
           </div>
-          <span className="text-xl font-black text-slate-800">ضاد</span>
+          <span className="text-2xl font-black text-slate-800 tracking-tight">ضاد</span>
         </div>
-        <div className="flex items-center gap-3">
-          <Link href="/dashboard">
-            <button className="px-4 py-2 bg-primary/10 text-primary font-bold rounded-full hover:bg-primary/20 transition-colors cursor-pointer">لوحة التقدم</button>
-          </Link>
+
+        {/* Secondary Features in Navbar */}
+        <div className="hidden md:flex items-center gap-3">
+          {secondaryFeatures.map((f, i) => (
+            <Link key={i} href={f.href}>
+              <motion.div
+                whileHover={{ y: -2, scale: 1.05 }}
+                className="bg-white/80 backdrop-blur-md border border-slate-200 px-4 py-2 rounded-xl flex items-center gap-2 cursor-pointer hover:shadow-md transition-all shadow-sm"
+              >
+                <div className={`w-6 h-6 rounded-md flex items-center justify-center ${f.bg} ${f.color}`}>
+                  {f.icon}
+                </div>
+                <span className="font-bold text-sm text-slate-700">{f.title}</span>
+              </motion.div>
+            </Link>
+          ))}
         </div>
       </motion.nav>
 
-      {/* Hero Content */}
-      <div className="z-10 w-full max-w-5xl px-6 flex flex-col items-center text-center space-y-10 mt-16">
+      {/* Hero Content - Centered */}
+      <div className="z-10 w-full max-w-5xl px-6 flex flex-col items-center justify-center flex-1 space-y-12 mt-10">
         
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="space-y-6"
+          className="space-y-6 text-center"
         >
-          <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-sm text-primary mx-auto">
-            <span className="flex h-2 w-2 rounded-full bg-primary ml-2 animate-pulse" />
-            مدعوم بالذكاء الاصطناعي
-          </div>
-
-          <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-[1.1] text-slate-900">
-            اكتشف جمال
+          <h1 className="text-6xl md:text-[5.5rem] font-black tracking-tight leading-[1.1] text-slate-900">
+            اكتب جملتك،
             <br />
-            <span className="text-gradient">النحو العربي</span>
+            <span className="text-gradient">ونحن نُعربها.</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            ضاد يحوّل القواعد النحوية المعقدة إلى أشجار تفاعلية وشروحات ذكية.
-            <br />
-            <span className="text-primary font-bold">اكتب أي جملة</span> وشاهد السحر يحدث.
+          <p className="text-xl md:text-2xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium">
+            حوّل القواعد النحوية المعقدة إلى <strong className="text-slate-800">أشجار تفاعلية</strong> وشروحات ذكية في ثوانٍ معدودة.
           </p>
         </motion.div>
 
-        {/* Search Bar */}
+        {/* Massive Search Bar */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className={`w-full max-w-2xl p-1.5 rounded-2xl flex flex-col sm:flex-row gap-2 transition-all duration-500 glass ${
-            inputFocused ? "shadow-2xl shadow-primary/20 border-primary/50" : "shadow-lg"
+          className={`w-full max-w-3xl p-2.5 rounded-3xl flex flex-col sm:flex-row gap-2 transition-all duration-500 bg-white border-2 ${
+            inputFocused ? "shadow-[0_20px_60px_-15px_rgba(0,109,119,0.3)] border-[#006D77]/50 scale-[1.02]" : "shadow-xl shadow-slate-200/50 border-slate-200"
           }`}
         >
-          <div className="relative flex-1">
+          <div className="relative flex-1 flex items-center">
             <input
               type="text"
-              placeholder="اكتب جملة عربية هنا (مثال: أكل الولد التفاحة)..."
-              className="h-14 w-full rounded-xl text-lg pr-4 pl-12 outline-none bg-transparent text-slate-800 placeholder:text-slate-400"
+              placeholder="أدخل جملة للتحليل (مثال: أكل الولد التفاحة)..."
+              className="h-16 w-full rounded-2xl text-2xl pr-6 pl-14 outline-none bg-transparent text-slate-900 placeholder:text-slate-300 font-bold"
               value={sentence}
               onChange={(e) => setSentence(e.target.value)}
               onFocus={() => setInputFocused(true)}
               onBlur={() => setInputFocused(false)}
               onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
             />
-            <button className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors cursor-pointer">
-              <Mic size={22} />
+            <button className="absolute left-4 text-slate-300 hover:text-[#006D77] transition-colors cursor-pointer">
+              <Mic size={28} />
             </button>
           </div>
           <button 
             onClick={handleAnalyze}
-            className="h-14 px-8 rounded-xl text-lg flex items-center justify-center gap-2 cursor-pointer bg-primary hover:bg-primary/90 text-white shadow-md transition-all font-bold"
+            className="h-16 px-10 rounded-2xl text-xl flex items-center justify-center gap-3 cursor-pointer bg-[#006D77] hover:bg-[#006D77]/90 text-white shadow-lg shadow-[#006D77]/30 transition-all font-black hover:scale-105 active:scale-95"
           >
-            حلّل الجملة
-            <ArrowLeft size={20} />
+            إعراب الجملة
+            <ArrowLeft size={24} strokeWidth={3} />
           </button>
         </motion.div>
 
-        {/* Feature Cards */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4"
-        >
-          {features.map((f, i) => (
-            <Link key={i} href={f.href}>
-              <motion.div
-                whileHover={{ y: -6 }}
-                className="glass p-6 text-right cursor-pointer group h-full rounded-2xl transition-all hover:shadow-xl hover:bg-white/40"
-              >
-                <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 shadow-sm"
-                  style={{ background: `${f.color}15`, color: f.color }}
-                >
-                  {f.icon}
-                </div>
-                <h3 className="font-bold text-slate-900 text-lg mb-2">{f.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{f.desc}</p>
-              </motion.div>
-            </Link>
-          ))}
-        </motion.div>
       </div>
-
-      {/* Floating Arabic calligraphy elements */}
-      <motion.div 
-        animate={{ y: [0, -15, 0] }} 
-        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-        className="absolute top-1/4 right-[12%] hidden lg:flex items-center justify-center text-5xl font-black text-primary/10 select-none"
-      >
-        فِعْل
-      </motion.div>
-      <motion.div 
-        animate={{ y: [0, 18, 0] }} 
-        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-1/4 left-[12%] hidden lg:flex items-center justify-center text-4xl font-black text-secondary/10 select-none"
-      >
-        اِسْم
-      </motion.div>
-      <motion.div 
-        animate={{ y: [0, -12, 0] }} 
-        transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 2 }}
-        className="absolute top-[60%] right-[8%] hidden lg:flex items-center justify-center text-3xl font-black text-accent/10 select-none"
-      >
-        حَرْف
-      </motion.div>
     </main>
+  );
+}
+
+// Simple floating background tree animation
+function BackgroundTree() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+      <svg className="absolute w-full h-full">
+        <motion.path 
+          d="M 300 200 C 400 200, 450 300, 500 400"
+          stroke="#006D77" strokeWidth="3" fill="transparent" strokeDasharray="5,5"
+          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, ease: "easeOut" }}
+        />
+        <motion.path 
+          d="M 500 400 C 550 500, 600 500, 700 600"
+          stroke="#006D77" strokeWidth="3" fill="transparent" strokeDasharray="5,5"
+          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, delay: 1, ease: "easeOut" }}
+        />
+        <motion.path 
+          d="M 500 400 C 400 500, 300 500, 200 600"
+          stroke="#006D77" strokeWidth="3" fill="transparent" strokeDasharray="5,5"
+          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, delay: 1.5, ease: "easeOut" }}
+        />
+        
+        {/* Abstract nodes across the screen */}
+        <motion.path 
+          d="M 70vw 20vh C 60vw 30vh, 50vw 30vh, 40vw 50vh"
+          stroke="#0EA5E9" strokeWidth="2" fill="transparent" strokeDasharray="4,4"
+          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2.5, delay: 0.5, ease: "easeOut" }}
+        />
+      </svg>
+
+      {/* Floating Nodes */}
+      <FloatingNode label="جملة فعلية" top="15%" left="20%" color="border-[#006D77] text-[#006D77]" delay={0} />
+      <FloatingNode label="فِعْل ماضٍ" top="35%" left="35%" color="border-[#0EA5E9] text-[#0EA5E9]" delay={0.5} />
+      <FloatingNode label="فَاعِل مرفوع" top="55%" left="15%" color="border-[#F59E0B] text-[#F59E0B]" delay={1} />
+      <FloatingNode label="مفعول به" top="20%" left="65%" color="border-[#EF4444] text-[#EF4444]" delay={1.5} />
+      <FloatingNode label="مضاف إليه" top="45%" left="80%" color="border-[#8B5CF6] text-[#8B5CF6]" delay={2} />
+      <FloatingNode label="حَرْف جَر" top="70%" left="60%" color="border-[#10B981] text-[#10B981]" delay={2.5} />
+    </div>
+  );
+}
+
+function FloatingNode({ label, top, left, color, delay }: { label: string, top: string, left: string, color: string, delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay, type: "spring" }}
+      className={`absolute px-4 py-2 bg-white rounded-xl shadow-lg border-2 ${color} font-bold text-lg`}
+      style={{ top, left }}
+    >
+      <motion.div
+        animate={{ y: [-5, 5, -5] }}
+        transition={{ repeat: Infinity, duration: 4 + delay, ease: "easeInOut" }}
+      >
+        {label}
+      </motion.div>
+    </motion.div>
   );
 }
