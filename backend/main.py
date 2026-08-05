@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import analyze, speech, relationships, explain, game
+from app.api import analyze, speech, relationships, explain, game, tashkeel
 from app.core.config import settings
 
 app = FastAPI(
@@ -22,6 +22,7 @@ app.include_router(speech.router, prefix="/api")
 app.include_router(relationships.router, prefix="/api")
 app.include_router(explain.router, prefix="/api")
 app.include_router(game.router, prefix="/api")
+app.include_router(tashkeel.router, prefix="/api")
 
 @app.get("/")
 def read_root():

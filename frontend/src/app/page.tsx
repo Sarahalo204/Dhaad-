@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Mic, Sparkles, Gamepad2, Network, BarChart3, BookOpenCheck } from "lucide-react";
+import { ArrowLeft, Mic, Sparkles, Gamepad2, Network, BarChart3, Wand2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -9,11 +9,32 @@ import Link from "next/link";
 export default function Home() {
   const [sentence, setSentence] = useState("");
   const [inputFocused, setInputFocused] = useState(false);
+  const [isTashkeeling, setIsTashkeeling] = useState(false);
   const router = useRouter();
 
   const handleAnalyze = () => {
     if (sentence.trim()) {
       router.push(`/analyze?q=${encodeURIComponent(sentence)}`);
+    }
+  };
+
+  const handleTashkeel = async () => {
+    if (!sentence.trim()) return;
+    setIsTashkeeling(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/tashkeel`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sentence: sentence.trim() }),
+      });
+      const data = await res.json();
+      if (data.tashkeel) {
+        setSentence(data.tashkeel);
+      }
+    } catch (error) {
+      console.error("Tashkeel error:", error);
+    } finally {
+      setIsTashkeeling(false);
     }
   };
 
@@ -117,9 +138,25 @@ export default function Home() {
               onBlur={() => setInputFocused(false)}
               onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
             />
-            <button className="absolute left-4 text-slate-300 hover:text-[#006D77] transition-colors cursor-pointer">
-              <Mic size={28} />
-            </button>
+            <div className="absolute left-4 flex items-center gap-2">
+              <button 
+                title="تشكيل ذكي تلقائي"
+                onClick={handleTashkeel}
+                disabled={isTashkeeling || !sentence}
+                className="p-2 rounded-xl text-slate-400 hover:text-[#F59E0B] hover:bg-[#F59E0B]/10 disabled:opacity-50 transition-colors cursor-pointer"
+              >
+                {isTashkeeling ? (
+                  <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
+                    <Sparkles size={24} />
+                  </motion.div>
+                ) : (
+                  <Wand2 size={24} />
+                )}
+              </button>
+              <button className="p-2 rounded-xl text-slate-400 hover:text-[#006D77] hover:bg-[#006D77]/10 transition-colors cursor-pointer">
+                <Mic size={24} />
+              </button>
+            </div>
           </div>
           <button 
             onClick={handleAnalyze}
