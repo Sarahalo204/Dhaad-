@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Mic, Sparkles, Gamepad2, Network, BarChart3, Wand2 } from "lucide-react";
+import { ArrowLeft, Mic, Sparkles, Gamepad2, Network, BarChart3, Wand2, BookOpenCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -52,6 +52,13 @@ export default function Home() {
       href: "/game",
       color: "text-[#F59E0B]",
       bg: "bg-[#F59E0B]/10"
+    },
+    {
+      icon: <BookOpenCheck size={20} />,
+      title: "تحليل الأبيات الشعرية",
+      href: "/poetry",
+      color: "text-[#8B5CF6]",
+      bg: "bg-[#8B5CF6]/10"
     },
     {
       icon: <BarChart3 size={20} />,

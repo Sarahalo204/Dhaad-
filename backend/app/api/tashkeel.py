@@ -1,11 +1,11 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from groq import Groq
-import os
+from app.core.config import settings
 import json
 
 router = APIRouter()
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+client = Groq(api_key=settings.GROQ_API_KEY)
 
 class TashkeelRequest(BaseModel):
     sentence: str
