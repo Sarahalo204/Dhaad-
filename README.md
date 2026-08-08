@@ -3,6 +3,8 @@
 **منصة متكاملة لتحويل قواعد النحو العربي المعقدة إلى تجربة تفاعلية وبصرية ذكية باستخدام الذكاء الاصطناعي.**  
 تم تطوير هذا المشروع كجزء من معسكر **SDA Bootcamp / LEAP**.
 
+🔗 **رابط الموقع (Live Demo):** [https://dhaad-two.vercel.app/](https://dhaad-two.vercel.app/)
+
 ![Dhaad AI Logo](https://img.shields.io/badge/%D8%B6%D8%A7%D8%AF-Dhaad%20AI-C9A96A?style=for-the-badge&logo=dependabot)
 
 ## 🚀 المميزات الرئيسية (Features)
